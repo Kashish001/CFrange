@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WW26MX9X4S"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-WW26MX9X4S');
+    </script>
+    <meta name="keywords" content="codeforces, user submissions when he was newbie or pupil, problem list, ladders">
+    <meta name="description" content="this will allow user to find the list of all problems the user did when he was Unrated Newbie Pupil Specialist and all by just a simple click">
+    <meta name="author" content="Amit Kumar, Kashish Gilhotra">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./CSS/style.css">
+    <link rel="icon" href="icon1.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>CF Range</title>
+</head>
+<body>
+    <div class="cc">
+        <div class="heading-container">
+                <div>
+                        <h1 id = "heading" style="font-size: 5vh; font-weight: bolder;">Codeforces Range</h1>
+                </div>
+            </div>
+    <div class="container">
+            <div class="form-box col-md-6">
+                <form class="form" action="" onsubmit="return false">
+                    <div class="form-group">
+                        <input class="form-control" name="handle" id="exampleInputEmail1" type="text" placeholder="Codeforces Handle" />
+                    </div>
+                    <div class="form-group" >
+                        <select class="form-control" name="div" id="opt">
+                            <option>Rating</option>
+                            <option class="v" value="Unrated,">Unrated</option>
+                            <option class="v" value="Newbie">Newbie</option>
+                            <option class="v" value="Pupil">Pupil</option>
+                            <option class="v" value="Specialist">Specialist</option>
+                            <option class="v" value="Expert">Expert</option>
+                            <option class="v" value="Candidate Master">Candidate Master</option>
+                            <option class="v" value="Master">Master</option>
+                            <option class="v" value="International Master">International Master</option>
+                            <option class="v" value="Grandmaster">Grandmaster</option>
+                            <option class="v" value="International Grandmaster">International Grandmaster</option>
+                            <option class="v" value="Legendary Grandmaster">Legendary Grandmaster</option>
+                        </select>
+                    </div>
+                    <a href="#pt"><button type="submit" class="btn btn-primary" id = "button" >Problems List</button></a>
+                </form> 
+                <span class="love">
+                    <a href="https://github.com/Kashish001/CFrange" target="_blank" style="font-weight: bolder; font-size: large; text-decoration: none;"> Amit Kumar / Kashish Gilhotra </a>
+                </span> 
+            </div>
+        </div>
+    </div>
+    <!-- Problems list -->
+    <section id="pt">
+
+    </section>
+
+</body>
+<script src="./dist/bundle.js"></script>
+</html>
