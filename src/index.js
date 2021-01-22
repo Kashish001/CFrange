@@ -132,7 +132,41 @@ function callMe() {
         }
         dataOfUser += "</tr></thead><tbody>";
         let numOfProblem = 1;
-        if(!ratingWiseProblems.has(ratingWantByUser)) {
+        let check = "ALL" + " " + userName;
+        if(ratingWantByUser == check) {
+            for(let [problemName, problemObject] of problemsAndTitles) {
+                if(isChecked.checked == true) {
+                    dataOfUser += "<tr><th scope='row'>" + numOfProblem + "</th>"
+                    if(problemObject["verdict"] == "OK") dataOfUser += "<td id = 'AC'>"
+                    else dataOfUser += "<td id = 'WA'>"
+                    dataOfUser += "<a class = 'tableProblem' href = '" + problemObject["link"] + "' target = '_blank'>" + problemName + "</a></td>"; 
+                    if(anotherUserProblems.has(problemName)) {
+                        let verd = anotherUserProblems.get(problemName);
+                        let verdict;
+                        if(verd == "OK") verdict = "AC";
+                        else if(verd == "TIME_LIMIT_EXCEEDED") verdict = "TLE";
+                        else if(verd == "WRONG_ANSWER") verdict = "WA";
+                        else if(verd == "MEMORY_LIMIT_EXCEEDED") verdict = "MLE"
+                        else verdict = "CE"; 
+                        if(verdict == "AC") {
+                            dataOfUser += "<td id = '"+verdict+"'>";
+                        } else {
+                            dataOfUser += "<td id = 'WA'>";
+                        }
+                        dataOfUser += verdict + "</td></tr>"
+                    } else {
+                        dataOfUser += "<td id = 'notDone'>Not Done</td></tr>"
+                    }
+                } else {
+                    dataOfUser += "<tr><th scope='row'>" + numOfProblem + "</th>"
+                    if(problemObject["verdict"] == "OK") dataOfUser += "<td id = 'AC'>"
+                    else dataOfUser += "<td id = 'WA'>"
+                    dataOfUser += "<a class = 'tableProblem' href = '" + problemObject["link"] + "' target = '_blank'>" + problemName + "</a></td></tr>";    
+                }
+                numOfProblem += 1;
+            }
+        }
+        else if(!ratingWiseProblems.has(ratingWantByUser)) {
             dataOfUser += "<tr><th scope='row'> 0 </th><td> No Data Found </td></tr>"
         } else {
             for(let problem of ratingWiseProblems.get(ratingWantByUser)) {
