@@ -118,53 +118,42 @@ body {
     opacity: 0.7;
     text-align: center;
 }
-#loader {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    z-index: 1;
-    width: 120px;
-    height: 120px;
-    margin: -76px 0 0 -76px;
-    border: 16px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 16px solid #3498db;
-    -webkit-animation: spin 2s linear infinite;
-    animation: spin 2s linear infinite;
-    
-  }
-  
-  @-webkit-keyframes spin {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(360deg); }
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  
-  /* Add animation to "page content" */
-  .animate-bottom {
-    position: relative;
-    -webkit-animation-name: animatebottom;
-    -webkit-animation-duration: 1s;
-    animation-name: animatebottom;
-    animation-duration: 1s
-  }
-  
-  @-webkit-keyframes animatebottom {
-    from { bottom:-100px; opacity:0 } 
-    to { bottom:0px; opacity:1 }
-  }
-  
-  @keyframes animatebottom { 
-    from{ bottom:-100px; opacity:0 } 
-    to{ bottom:0; opacity:1 }
-  }
-  #AC {
-      background-color: #097422 !important;
-  }
+
+#AC {
+    background-color: #147c2c;
+      color: #ffffff !important;
+      font-size: larger;
+      font-weight: bolder;
+}
   #WA {
-    background-color: #990e0e !important;
+      background-color: rgb(163, 30, 30);
+    color: #ffffff !important;
+    font-size: larger;
+    font-weight: bolder;
   }
+  .key {
+	border: 1px solid #79d9ce;
+	width: 25px;
+    height: 25px;
+    margin-right: 10px;
+}
+#flexOfVerdict {
+    background-color:whitesmoke;
+    opacity: 0.7;
+    color: black;
+    font-weight: bold;
+}
+#notDone {
+    background-color: rgb(255, 255, 255);
+    color: #000000 !important;
+    font-size: larger;
+    font-weight: bolder;
+}
+.ac {
+    background-color: #147c2c;
+    border-radius: #147c2c;
+}
+.wa {
+    background-color: rgb(163, 30, 30);
+    border-color: rgb(163, 30, 30);
+}
