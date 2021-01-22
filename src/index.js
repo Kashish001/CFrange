@@ -5,9 +5,11 @@ let { contains } = require("cheerio");
 let baseLinkofProblem = "https://codeforces.com"
 let problemsAndTitles = new Map();
 let ratingWiseProblems = new Map();
+let anotherUserProblems = new Map();
+let isChecked = document.getElementById("userId");
 
 function getNumberOfPages(url) {
-    return new Promise(async (resolve) =>{
+    return new Promise(async (resolve) => {
         let pageResponse = await request.get(url);
         let $ = cheerio.load(pageResponse);
         for(let child of $(".status-frame-datatable > tbody > tr")) {
@@ -49,6 +51,27 @@ function callMe() {
             alert("Select Rating");
             return ;
         }
+
+        //-------------------------------------------------------------
+        let dataOfAnotherUser;
+        //If User Wants to Check thhere Problems with Another user
+        if(isChecked.checked == true) {
+            let nameOfAnotherUSer = await document.getElementById("playerId").value;
+            if(nameOfAnotherUSer == "") {
+                alert("Enter User Id to be Mapped with")
+                return ;
+            }
+            let urlOfAnotherUser = "https://codeforces.com/api/user.status?handle="+ nameOfAnotherUSer + "&from=1";
+            dataOfAnotherUser = await request.get(urlOfAnotherUser)
+            dataOfAnotherUser = JSON.parse(dataOfAnotherUser);
+            for(let problemData of dataOfAnotherUser["result"]) {
+                if(!anotherUserProblems.has(problemData["problem"]["name"])) {
+                    anotherUserProblems.set(problemData["problem"]["name"], problemData["verdict"])
+                }
+            }
+        }
+        //------------------------------------------------------------
+
         let baseLinkOfPage = "https://codeforces.com/submissions/" + userName + "/page/"
         let linkToGetPageNumbers =  "https://codeforces.com/submissions/" + userName + "/page/1"
         ratingWantByUser = ratingWantByUser + " " + userName;
@@ -66,6 +89,7 @@ function callMe() {
                 return e.message;
             }
         }));
+
         for(let pageResponse of resposeOfLinks) {
             let $ = cheerio.load(pageResponse);
             for(let child of $(".status-frame-datatable > tbody > tr")) {
@@ -102,16 +126,44 @@ function callMe() {
                 ratingWiseProblems.get(problemObject["title"]).add(obj);
             }
         }
-        let dataOfUser = "<table class='table table-striped table-dark' id = 'problemTable'><thead><tr><th scope='col'>#</th><th scope='col'>Problems</th></tr></thead><tbody>"
+        let dataOfUser = "<table class='table table-striped table-dark' id = 'problemTable'><thead><tr><th scope='col'>S.NO</th><th scope='col'>Problem List of " + userName + "</th>"
+        if(isChecked.checked == true) {
+            dataOfUser += "<th scope='col'> Your Status </th>"
+        }
+        dataOfUser += "</tr></thead><tbody>";
         let numOfProblem = 1;
         if(!ratingWiseProblems.has(ratingWantByUser)) {
             dataOfUser += "<tr><th scope='row'> 0 </th><td> No Data Found </td></tr>"
         } else {
             for(let problem of ratingWiseProblems.get(ratingWantByUser)) {
-                if(problem["data"]["verdict"] == "OK") {
-                    dataOfUser += "<tr id = 'AC'>"
-                } else dataOfUser += "<tr id = 'WA'>"
-                dataOfUser += "<th scope='row'>" + numOfProblem + "</th>" + "<td>" + "<a class = 'tableProblem' href = '" + problem["data"]["link"] + "' target = '_blank'>" + problem["name"] + "</a></td></tr>";
+                if(isChecked.checked == true) {
+                    dataOfUser += "<tr><th scope='row'>" + numOfProblem + "</th>"
+                    if(problem["data"]["verdict"] == "OK") dataOfUser += "<td id = 'AC'>"
+                    else dataOfUser += "<td id = 'WA'>"
+                    dataOfUser += "<a class = 'tableProblem' href = '" + problem["data"]["link"] + "' target = '_blank'>" + problem["name"] + "</a></td>"; 
+                    if(anotherUserProblems.has(problem["name"])) {
+                        let verd = anotherUserProblems.get(problem["name"]);
+                        let verdict;
+                        if(verd == "OK") verdict = "AC";
+                        else if(verd == "TIME_LIMIT_EXCEEDED") verdict = "TLE";
+                        else if(verd == "WRONG_ANSWER") verdict = "WA";
+                        else if(verd == "MEMORY_LIMIT_EXCEEDED") verdict = "MLE"
+                        else verdict = "CE"; 
+                        if(verdict == "AC") {
+                            dataOfUser += "<td id = '"+verdict+"'>";
+                        } else {
+                            dataOfUser += "<td id = 'WA'>";
+                        }
+                        dataOfUser += verdict + "</td></tr>"
+                    } else {
+                        dataOfUser += "<td id = 'notDone'>Not Done</td></tr>"
+                    }
+                } else {
+                    dataOfUser += "<tr><th scope='row'>" + numOfProblem + "</th>"
+                    if(problem["data"]["verdict"] == "OK") dataOfUser += "<td id = 'AC'>"
+                    else dataOfUser += "<td id = 'WA'>"
+                    dataOfUser += "<a class = 'tableProblem' href = '" + problem["data"]["link"] + "' target = '_blank'>" + problem["name"] + "</a></td></tr>";    
+                }
                 numOfProblem += 1;
             }
         }
