@@ -51,7 +51,8 @@ function callMe() {
             alert("Select Rating");
             return ;
         }
-
+        //Show Timer
+        document.getElementById("smay").style.display = "block";
         //-------------------------------------------------------------
         let dataOfAnotherUser;
         //If User Wants to Check thhere Problems with Another user
@@ -201,6 +202,7 @@ function callMe() {
                 numOfProblem += 1;
             }
         }
+        document.getElementById("smay").style.display = "none";
         dataOfUser += "</tbody></table>";
         document.getElementById("pt").innerHTML = dataOfUser;
         window.scrollBy(0, 580);
