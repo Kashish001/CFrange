@@ -8,6 +8,8 @@ let ratingWiseProblems = new Map();
 let anotherUserProblems = new Map();
 let isChecked = document.getElementById("userId");
 
+// NUmber of pages of Submissions that have to be Scrapped
+
 function getNumberOfPages(url) {
     return new Promise(async (resolve) => {
         let pageResponse = await request.get(url);
@@ -34,6 +36,8 @@ function getNumberOfPages(url) {
         resolve($(toBeFound).text());
     });
 }
+
+////////////////////////////////////////////////////////////////////////
 
 function rating() {
     var e = document.getElementById("opt");
@@ -63,8 +67,13 @@ function callMe() {
                 return ;
             }
             let urlOfAnotherUser = "https://codeforces.com/api/user.status?handle="+ nameOfAnotherUSer + "&from=1";
-            dataOfAnotherUser = await request.get(urlOfAnotherUser)
-            dataOfAnotherUser = JSON.parse(dataOfAnotherUser);
+            dataOfAnotherUser = await fetch(urlOfAnotherUser)
+            dataOfAnotherUser = dataOfAnotherUser.json();
+            if(dataOfAnotherUser["status"] !== "OK") {
+                alert("Wrong User Id");
+                document.getElementById("smay").style.display = "none";
+                return ;
+            }
             for(let problemData of dataOfAnotherUser["result"]) {
                 if(!anotherUserProblems.has(problemData["problem"]["name"])) {
                     anotherUserProblems.set(problemData["problem"]["name"], problemData["verdict"])
@@ -76,6 +85,13 @@ function callMe() {
         let baseLinkOfPage = "https://codeforces.com/submissions/" + userName + "/page/"
         let linkToGetPageNumbers =  "https://codeforces.com/submissions/" + userName + "/page/1"
         ratingWantByUser = ratingWantByUser + " " + userName;
+        let checkUserResposne = await fetch("https://codeforces.com/api/user.rating?handle=" + userName);
+        let checkUser = await checkUserResposne.json();
+        if(checkUser['status'] !== 'OK'){
+            alert("Wrong User Id");
+            document.getElementById("smay").style.display = "none";
+            return ;
+        }
         let numberOfPages = await getNumberOfPages(linkToGetPageNumbers);
         numberOfPages -= 1;
         let links = []
