@@ -23,7 +23,7 @@
     <title>CF Range</title>
     
 </head>
-<body>
+<body onload="clearText()">
     <div class="cc">
         <div class="heading-container">
                 <div>
@@ -62,7 +62,7 @@
                     <a href="#pt"><button type="submit" class="btn btn-primary" id = "button" >Problems List</button></a>
                 </form> 
                 <span class="love">
-                    <a href="https://github.com/Kashish001/CFrange" target="_blank" style="font-weight: bolder; font-size: large; text-decoration: none;"> Amit Kumar / Kashish Gilhotra </a>
+                    <a href="https://github.com/Kashish001/CFrange" target="_blank" style="font-weight: bolder; font-size: large; text-decoration: none;"><img src="github-logo.png" height="16px;" width="16px;" style="margin-top: 5px; border-radius:50%;"> Amit Kumar / Kashish Gilhotra </a>
                 </span>
                 <div style="display: none;" id="smay"> 
                     <div class="loader"></div>
@@ -77,7 +77,7 @@
     </div>
     <div class="d-flex p-2">
         <div class="key wa"></div>
-        <div>Error</div>
+        <div>Error / WA / TLE / MLE</div>
     </div>
     <div class="d-flex p-2">
         <div class="key not"></div>
@@ -88,6 +88,20 @@
     <section id="pt">
 
     </section>
+    <div id="sugg">
+        <form action="https://formspree.io/f/xaylvlvb" method="POST">
+            <textarea name="message" placeholder="Any comments or suggestions" class="mess" id="lbh"></textarea>
+            <div>
+                <button type="submit" class="btn btn-info" id="sending">Send</button>
+            </div>
+        </form>
+    </div>
+    <footer class="bg-light text-center text-lg-start" id="bott">
+        <div class="text-center p-3" style="background-color: rgb(0, 0, 0); color: white !important;">
+          © 2021 Copyright:
+          <a class="text-dark" style="color: white !important;" href="https://github.com/Kashish001/CFrange">Codeforces Range : Amit Kumar / Kashish Gilhotra</a>
+        </div>
+    </footer>
 
 </body>
 <script>
@@ -99,6 +113,9 @@
         } else {
             text.style.display = "none";
         }
+    }
+    function clearText() {
+        document.getElementById("lbh").value = "";
     }
 </script>
 <script src="./dist/bundle.js"></script>
