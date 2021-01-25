@@ -174,4 +174,17 @@ body {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
-  
+  #sugg{
+    background-color: rgb(17, 31, 34);
+    text-align: center;
+}
+#sending {
+    margin: 2px auto 10px auto;
+}
+.mess {
+    height: 5vh;
+    width: 40vw;
+    margin: 10px auto;
+    border-radius: 5px;
+    border: 5px solid #208496;
+}
